@@ -32,6 +32,11 @@ class _LinkMenuState extends State<LinkMenu> {
   final _textEditingController = TextEditingController();
   final _focusNode = FocusNode();
 
+  bool _isValidURL(String value) {
+    return isURL(value) ||
+        RegExp(r'^file:\/\/\/[^\s]+$', caseSensitive: false).hasMatch(value);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -116,7 +121,7 @@ class _LinkMenuState extends State<LinkMenu> {
           ),
         ),
         validator: (value) {
-          if (value == null || value.isEmpty || !isURL(value)) {
+          if (value == null || value.isEmpty || !_isValidURL(value)) {
             return AppFlowyEditorL10n.current.incorrectLink;
           }
           return null;
