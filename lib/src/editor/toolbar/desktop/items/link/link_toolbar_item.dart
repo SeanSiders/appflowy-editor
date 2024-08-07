@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:appflowy_editor/src/editor/toolbar/desktop/items/link/link_menu.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +97,7 @@ void showLinkMenu(
           await safeLaunchUrl(linkText);
         },
         onSubmitted: (text) async {
-          if (isURL(text)) {
+          if (isURL(text) || File(text).existsSync()) {
             await editorState.formatDelta(selection, {
               BuiltInAttributeKey.href: text,
             });

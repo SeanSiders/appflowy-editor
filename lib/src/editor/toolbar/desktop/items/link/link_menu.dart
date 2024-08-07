@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:appflowy_editor/src/editor/toolbar/desktop/items/utils/overlay_util.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +35,7 @@ class _LinkMenuState extends State<LinkMenu> {
   final _focusNode = FocusNode();
 
   bool _isValidURL(String value) {
-    return isURL(value) ||
-        RegExp(r'^file:\/\/\/[^\s]+$', caseSensitive: false).hasMatch(value);
+    return isURL(value) || File(value).existsSync();
   }
 
   @override
